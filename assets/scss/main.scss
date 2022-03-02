@@ -1,0 +1,191 @@
+@import "_reset.scss"; 
+@import "_fonts.scss"; 
+@import "_layout.scss"; 
+@import "_keyframes.scss"; 
+@import "_swiper.scss"; 
+
+/* main */
+#wrap{ 
+    position: relative; 
+    .intro{
+        position: fixed;
+        top:0; 
+        left:0;
+        width: 100%; 
+        height: 100%;
+        background: #000;
+        overflow: hidden;
+        z-index: 1000;
+        &__textbox{
+            position: absolute;
+            top: 43.4%;
+            left: 10.4%;
+            color: #fff;
+            font-size:40px;
+            z-index: 100;   
+          
+        }
+        &__title{
+            font-size: 75px;
+            text-transform: uppercase;
+            span{
+                width: 100%;
+                float: left;
+                color: #fff;
+                -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 80%);
+                clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 80%);
+                transform: translateY(-50px);
+                opacity: 0;
+                animation-name: titleAnimation;
+                animation-timing-function:ease;
+                animation-duration: 3s;
+                animation-delay: 0.6s;
+                -webkit-animation-fill-mode: forwards;
+                &:first-child{ animation-delay: 0.7s;  }
+                &:last-child{ color: #ffe221; animation-delay: 0.5s; }
+            }
+        }
+        &__cover{
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            background: #1e90ff;
+            -moz-transform: translateX(100%);
+            -ms-transform: translateX(100%);
+            -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+        }
+    }
+
+    main{
+        position: relative; overflow: hidden;
+        .slider_content{
+            display: table; 
+            overflow: hidden; 
+            width: 100%; 
+            height: 100%;
+            .slider_inner{
+                display: table;
+                vertical-align: middle;
+                text-align: left;
+                position: absolute;
+                bottom: 23%;
+                left: 15.5%;
+                .slider_text{
+                    position: relative;
+                    z-index: 10;
+                    text-transform: uppercase;
+                }
+                .slider_title{ 
+                    margin-bottom: 22px;
+                    a{
+                        font-family: $font-kr;
+                        display: inline-block;
+                        font-size: 80px;
+                        color: #2b2b2b;
+                        line-height: 72px;
+                        letter-spacing: -4.5px;
+                        em{
+                            display: inline-block;
+                            -webkit-transform: scaleX(0.9);
+                            -moz-transform: scaleX(0.9);
+                            transform: scaleX(0.9);
+                            transform-origin: top left;
+                            word-break: keep-all;
+                        }
+                    }
+                }
+                .slider_progress{
+                    position: relative;
+                    margin:0 0 30px 5px;
+                    width: 360px;
+                    height: 2px;
+                    background: #eee;
+                    .progress{
+                        position: absolute;
+                        top:0; left:0;
+                        width:0; height: 2px;
+                        background: #fff; opacity: 1;
+                    }
+                    &:before{
+                        content: '';
+                        display: block;
+                        width: 360px;
+                        height: 2px;
+                        background: #2b2b2b;
+                        opacity: .2;  
+                    }
+                }
+                .slide_desc{
+                    margin-bottom: 14px;
+                    font-size:24px;
+                    color: #2b2b2b; 
+                    line-height: 17px;
+                    .slider_client{
+                        display: inline-block; 
+                        margin-right: -10px;
+                        font-weight: 300; 
+                        &-font{
+                            display:inline-block;
+                            letter-spacing:0.5px;
+                            -webkit-transform:scaleX(0.8);
+                            -moz-transform:scaleX(0.8);
+                            transform:scaleX(0.8);
+                            transform-origin:top left;
+                        }
+                    }
+                
+                }
+                .slider_btn{
+                    position: relative;
+                    overflow: hidden;
+                    margin:20px 0 50px;
+                    z-index: 10;
+                    .slider_prev,
+                    .slider_next{
+                        display: block;
+                        float: left;
+                        width: 55px;
+                        height: 55px;
+                    }
+                    .slider_prev{
+                        margin-right: 15px; 
+                        background:url( ../images/slide_prev_w.png) 0 0 no-repeat; 
+                    }
+                    .slider_next{
+                        background:url( ../images/slide_next_w.png) 0 0 no-repeat;
+                    }
+                }
+                .slider-pagenation{
+                    position: relative; z-index: 100;
+                    span{
+                        display: inline-block;
+                        font-size: 18px;
+                        font-weight: 300;
+                        color: #fff;
+                    }
+                }
+            }
+        
+        }
+        .mySwiper{
+            height: 100vh; 
+            background: #fff;
+            overflow: hidden;
+            .swiper-container{ height: inherit;}
+            .swiper-slide{
+                a{
+                    display: block;
+
+                }
+            }
+
+        }
+    }
+}
+
+ 
+   

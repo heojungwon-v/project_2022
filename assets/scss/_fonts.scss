@@ -1,0 +1,23 @@
+@font-face{ 
+    font-family:'NotoSansCJKkr'; 
+    src:url('/fonts/NotoSansCJKkr.eot'); 
+    src:url('/fonts/NotoSansCJKkr.eot?#iefix') format(‘embedded-opentype’),
+    url('/fonts/NotoSansCJKkr.woff') format(‘woff’), 
+    url('/fonts/NotoSansCJKkr.woff2') format(‘woff2’), 
+    url('/fonts/NotoSansCJKkr.ttf') format('truetype'),
+   
+}
+
+@font-face{ 
+    font-family:'roboto'; 
+    src:url('/fonts/roboto.eot'); 
+    src:url('/fonts/roboto.eot?#iefix') format(‘embedded-opentype’),
+    url('/fonts/roboto.woff') format(‘woff’), 
+    url('/fonts/roboto.woff2') format(‘woff2’), 
+    url('/fonts/roboto.ttf') format('truetype'),
+   
+}
+
+
+$font-kr : 'NotoSansCJKkr';
+$font-en : 'roboto';
