@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/lib/swiper_min.css">
+    <style>
+    html,
+      body {
+        position: relative;
+        height: 100%;
+      }
+
+      body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+      }
+       
+      .swiper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #151515;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      #wrap{ position: relative; }
+      .intro{
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        overflow: hidden;
+        z-index: 1000;
+      }
+
+      .intro__textbox{
+        position: absolute;
+        top: 43.4%;
+        left: 10.4%;
+        color: #fff;
+        font-size:40px;
+        z-index: 100;
+      }
+
+      .intro__title{
+        font-size: 75px;
+        text-transform: uppercase;
+      }
+      .intro__title span{
+        width: 100%;
+        float: left;
+        color: #fff;
+        -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 80%);
+        clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 80%);
+        transform: translateY(-50px);
+        opacity: 0;
+        animation-name: titleAnimation;
+        animation-timing-function:ease;
+        animation-duration: 3s;
+      }
+
+      .intro__title span{
+        animation-delay: 0.6s;
+        -webkit-animation-fill-mode: forwards;
+      }
+      .intro__title span:first-child{ animation-delay: 0.7s; }
+      .intro__title span:last-child{ color: #ffe221; animation-delay: 0.5s; }
+      @keyframes titleAnimation {
+          0% {
+            transform: translateY(-50px);
+            opacity: 0;
+            -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 80%);
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 80%);
+        }
+        20% {
+            transform: translateY(0);
+            opacity: 1;
+            -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 15%);
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 15%);
+        }
+        80% {
+            transform: translateY(0);
+            opacity: 1;
+            -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 15%);
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 15%);
+        }
+        100% {
+            transform: translateY(50px);
+            opacity: 0;
+            -webkit-clip-path: polygon(100% 0, 100% -0%, 0 100%, 0 100%);
+            clip-path: polygon(100% 0, 100% -0%, 0 100%, 0 100%);
+          
+        }
+      }
+
+      .intro__cover{
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        background: #1e90ff;
+        -moz-transform: translateX(100%);
+        -ms-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+      }
+
+      main{ position: relative; overflow: hidden;}
+      .mySwiper{ height: 100vh; background: #fff; overflow: hidden;}
+      .mySwiper .swiper-container{ height: inherit;}
+      .swiper-slide a{ display: block; }
+      .slider_content{ display: table; overflow: hidden; width: 100%; height: 100%; }
+      .slider_content .slider_inner{
+          display: table;
+          vertical-align: middle;
+          text-align: left;
+          position: absolute;
+          bottom: 23%;
+          left: 15.5%;
+       }
+       .slider_content .slider_text{
+          position: relative;
+          z-index: 10;
+          text-transform: uppercase;
+       }
+       .slider_content .slider_title{ margin-bottom: 22px;}
+       .slider_content .slider_title a{
+          display: inline-block;
+          font-size: 80px;
+          color: #2b2b2b;
+          line-height: 72px;
+          letter-spacing: -4.5px;
+       }
+
+       .slider_content .slider_title a em{
+          display: inline-block;
+          -webkit-transform: scaleX(0.9);
+          -moz-transform: scaleX(0.9);
+          transform: scaleX(0.9);
+          transform-origin: top left;
+          word-break: keep-all;
+       }
+
+       .slider_content .slider_progress{
+          position: relative;
+          margin:0 0 30px 5px;
+          width: 360px;
+          height: 2px;
+          background: #eee;
+       }
+       .slider_content .slider_progress:before{
+         content: '';
+         display: block;
+         width: 360px;
+         height: 2px;
+         background: #2b2b2b;
+         opacity: .2;
+       } 
+
+       .slider_content .slider_progress .progress{
+         position: absolute;
+         top:0; left:0; width:0; height: 2px; background: #fff; opacity: 1;
+       } 
+
+       .slider_content .slide_desc{
+          margin-bottom: 14px; font-size:24px; color: #2b2b2b; line-height: 17px;
+       }
+       .slider_content .slide_desc .slider_client{
+          display: inline-block; margin-right: -10px; font-weight: 300;
+       }
+       .slider_content .slide_desc .slider_client-font{
+          display:inline-block;letter-spacing:0.5px;-webkit-transform:scaleX(0.8);-moz-transform:scaleX(0.8);transform:scaleX(0.8);transform-origin:top left;
+        }
+        .slider_content  .slider_btn{
+          position: relative; overflow: hidden; margin:20px 0 50px; z-index: 10;
+        }
+        .slider_content  .slider_btn .slider_prev,
+        .slider_content  .slider_btn .slider_next{ 
+          display: block;
+          float: left;
+          width: 55px;
+          height: 55px;
+        }
+        .slider_content  .slider_btn .slider_prev{ margin-right: 15px; background:url( ./images/slide_prev_w.png) 0 0 no-repeat;}
+        .slider_content  .slider_btn .slider_next{ background:url( ./images/slide_next_w.png) 0 0 no-repeat;}
+        .slider_content  .slider-pagenation{ position: relative; z-index: 100;}
+        .slider_content  .slider-pagenation span{
+          display: inline-block;
+          font-size: 18px;
+          font-weight: 300;
+          color: #fff;
+        }
+
+        /* header */
+        header .gnb{
+          position: fixed;
+          top: 30px;
+          left: 30px;
+          z-index: 101;
+        }
+        header .gnb a{ display: block; color: #fff; padding: 5px 20px 5px 10px; }
+        header .gnb a span{ display: block; font-size: 0; width: 28px; height: 2px; margin: 8px 0; background: #fff; }
+        header .gnb a span:nth-child(1),
+        header .gnb a span:nth-child(3){width: 28px;}
+        header .gnb a span:nth-child(2){width: 38px;}
+        
+        nav{
+            position: fixed;
+            width: 420px;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 10;
+            background: #000000cc;
+            z-index: 330;
+            -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+            -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
+            transition: transform 0.5s, visibility 0s 0.5s; 
+        }
+        nav.open{
+          -webkit-transform: translateX(0px) translateX(0);
+          transform: translateX(0px) translateX(0);
+          -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
+          transition: transform 0.5s, visibility 0s 0.5s;
+        }
+        nav>a{
+          display: block;
+          position: absolute;
+          top: 50px;
+          left: 40px;
+          transition: all 0.5s ease;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+        }
+        nav .menu_list{
+          margin: 140px 55px 0;
+          padding: 21px 0 10px 25px;
+          border-bottom: 1px solid #333333;
+        }
+        nav .menu_list li{ overflow: hidden;  padding: 0 0 52px 10px; }
+        nav .menu_list li a{ font-size: 25px; color: #fff; line-height: 21px; letter-spacing: 0.5px;}
+        nav .menu_list li a span{
+          float: left;
+          opacity: 0.5;
+          transition: all 0.5s ease;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          font-family: 'Roboto', sans-serif;
+          -webkit-transform: scaleX(0.9);
+          -moz-transform: scaleX(0.9);
+          transform: scaleX(0.9);
+          transform-origin: top left;
+        }
+        nav .menu_list li a span:first-child{ 
+          display: inline-block;
+          width: 55px;
+          margin-top: 0;
+          font-size: 16px;
+          letter-spacing: 0;
+          vertical-align: top;
+          font-family: 'Roboto Condensed', sans-serif;
+        }
+        nav .menu_list li.active a span{
+          opacity: 1;
+        }
+        nav .menu_list li:hover a span{ opacity: 1;}
+
+        nav .family_list{
+          margin: 46px 55px 0;
+          padding-left: 25px;
+          border-bottom: 1px solid #333333;
+        }
+        nav .family_list li{
+          padding: 0 0 30px 10px;
+          line-height: 10px;
+        }
+        nav .family_list li a{
+          font-size: 12px;
+          color: #fff;
+          line-height: 10px;
+          font-weight: 400;
+          font-family: 'Roboto', sans-serif;
+          transition: all 0.5s ease;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+           text-decoration: none;
+        }
+        nav footer{
+          margin: 40px 0 0 64px;
+          padding-left: 20px;
+          font-size: 12px;
+          color: #fff;
+          line-height: 10px;
+          font-family: 'Roboto', sans-serif; 
+        }
+        nav footer span{
+          display: inline-block;
+          margin-bottom: 30px;
+          padding-right: 20px;
+          line-height: 10px;  
+        }
+        nav footer .address{ line-height: 17px; }
+
+        header .family{
+          position: fixed;
+          bottom: 340px;
+          left: 40px;
+          transform: rotate(90deg);
+          transform-origin: bottom left;
+          -webkit-transform: rotate(90deg);
+          -moz-transform: rotate(90deg);
+          z-index: 101;
+        }
+        header .family a{
+          display: inline-block;
+          padding-left: 30px;
+          font-size: 12px;
+          letter-spacing: 0.5px;
+          color: #fff;
+          font-family: 'Roboto Condensed', sans-serif;
+          text-decoration: none;
+        }
+        header .logo{ 
+          position: fixed;
+          top: 40px;
+          right: 40px;
+          width: 122px;
+          height: 54px;
+          font-size: 0;
+          z-index: 201;
+          background: url(images/logo_w.png);
+          display: block;
+        }
+
+        header .sns{
+          position: fixed;
+          top: 136px;
+          right: 40px;
+          z-index: 101;
+        }
+        header .sns a{
+          position: relative;
+          display: block;
+          margin-bottom: 40px;
+          background: url(/images/icon_social.png);
+          text-align: right;
+        }
+  
+        header .sns a.youtube{
+          width: 18px;
+          height: 13px;
+          background-position: -18px -55px;
+        }
+        header .sns a.fb{
+          width: 18px;
+          height: 18px;
+          background-position: -19px 0;
+        }
+        header .sns a.blog{
+          width: 18px;
+          height: 16px;
+          background-position: -19px -38px;
+        }
+        header .sns a.insta{
+          width: 18px;
+          height: 18px;
+          background-position: -18px -19px;
+        }
+        header .sns a span{
+          position: absolute;
+          right: 0;
+          display: inline-block;
+          width: 100px;
+          font-size: 12px;
+          color: #2b2b2b;
+          font-family: 'Roboto', sans-serif;
+          font-weight: bold;
+          color: #fff;
+          opacity: 0;
+          transition: all 0.5s ease;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;  
+        }
+        header .sns a:hover span{ position:absolute;right:30px;opacity:1}
+
+        header .project{
+          position: fixed;
+          bottom: 40px;
+          right: 43px;
+          font-size: 12px;
+          letter-spacing: 1px;
+          transform: rotate(90deg);
+          transform-origin: bottom right;
+          -webkit-transform: rotate(90deg);
+          -moz-transform: rotate(90deg);
+          z-index: 101;
+        }
+        header .project a{ color: #fff; padding:30px; text-decoration: none; }
+        header .project a span{
+          display: inline-block;
+          width: 14px;
+          height: 10px;
+          background: url(/images/icon_project.png);
+          background-position: -14px 0;
+          margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+      <div class="intro">
+          <div class="intro__textbox">
+            <h1 class="intro__title">
+              <span>Hi, nice</span>
+              <span>to see</span>
+              <span>you here</span>
+            </h1>
+          </div>
+          <div class="intro__cover"></div>
+      </div>
+      <header>
+        <a href="javascript:;" class="logo">뉴턴그룹</a>
+        <div class="gnb">
+          <a href="javascript:;">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
+        </div>
+        <div class="family">
+          <a href="javascript:;">Newturnfilm</a>
+          <a href="javascript:;">Vava village</a>
+          <a href="javascript:;">Webart</a>
+        </div>
+        <div class="sns">
+          <a href="javascript:;" class="youtube">
+            <span>PLAY! NEWTURN</span>
+          </a>
+          <a href="javascript:;" class="fb">
+            <span>LIKE</span>
+          </a>
+          <a href="javascript:;" class="blog">
+            <span>OUT STORY</span>
+          </a>
+          <a href="javascript:;" class="insta">
+            <span>#^^</span>
+          </a>
+        </div>
+        <div class="project">
+          <a href="javascript:;">
+            <span></span>
+            PROJECT REQUEST
+          </a>
+        </div>
+      </header>
+      <nav>
+        <a href="javascript:;" class="nav_close">
+          <img src="./images/icon_close_w.png" alt="닫기버튼">
+        </a>
+        <ul class="menu_list">
+          <li class="active">
+            <a href="javascript:;">
+              <span>01</span>
+              <span>MAIN</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <span>02</span>
+              <span>ABOUT US</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <span>03</span>
+              <span>WORKS</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <span>04</span>
+              <span>NEWS</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <span>05</span>
+              <span>AWARD</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <span>06</span>
+              <span>CONTACT</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="family_list">
+          <li>
+            <a href="javascript:;">NEWTURN FILM</a>
+          </li>
+          <li>
+            <a href="javascript:;">VAVA VILLAGE</a>
+          </li>
+          <li>
+            <a href="javascript:;">WEB ART</a>
+          </li>
+          <li>
+            <a href="javascript:;">PROJECT REQUEST　프로젝트 의뢰</a>
+          </li>
+        </ul>
+        <footer>
+          <span class="tel">+82(0)2 3448 5991</span>
+          <span class="tel">FAX. +82(0)2 3448 5998</span>
+          <p class="address">
+            7F, JASMI BLDG 33, DOSAN-DAERO 27-GIL<br />
+            GANGNAM-GU, SEOUL, KOREA 
+          </p>
+        </footer>
+      </nav>
+      <main>
+        <div class="slider_content">
+          <div class="slider_inner">
+            <div class="slider_text">
+              <div class="slider_title">
+                <a href="javascript:;">
+                  <em>iloom PLACER Online Showroom</em>
+                </a>
+              </div>
+              <div class="slider_progress">
+                <div class="progress"></div>
+              </div>
+              <div class="slide_desc">
+                <span class="slider_client">
+                  <span class="slider_client-font"></span>
+                </span>
+              </div>
+            </div>
+
+            <div class="slider_btn">
+              <a href="javascript:;" class="slider_prev"></a>
+              <a href="javascript:;" class="slider_next"></a>
+            </div>
+            <div class="slider-pagenation">
+              <span class="slide-current">01</span>
+              <span class="slide-total">3</span>
+            </div>
+          </div>
+        </div>
+        <div class="swiper mySwiper">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" data="visualData">
+                <a href="javascript:;">
+                  <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_lg_ibs.jpg?ver=0" style="min-width:100%; min-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
+                    <source src="http://www.newturngroup.com/images/portfolio/lg_ibs/visual_lg_ibs.mp4?ver=0" type="video/mp4">
+                  </video>
+                </a>
+              </div>
+              <div class="swiper-slide" data="visualData">
+                <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_iloom.jpg?ver=0" style="min-width:100%; min-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
+                  <source src="http://www.newturngroup.com/images/portfolio/iloom/visual_iloom.mp4?ver=20112301" type="video/mp4">
+                </video>
+              </div>
+              <div class="swiper-slide" data="visualData">
+                <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_lg_velvet_thum.jpg?ver=0" style="min-width:100%; min-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
+                  <source src="http://www.newturngroup.com/images/portfolio/lg_velvet/visual_lg_velvet.mp4?ver=20061001" type="video/mp4">
+                </video>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+    </div>
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/lib/swiper.js"></script>
+    <script src="js/lib/gsap.min.js"></script> 
+    <script>
+      var _mainSwiperList;
+      var _mainSwiperBtnNext;
+      var _mainSwiperBtnPrev;
+      var _realIndex;
+      var _gnbClick;
+      var _navCloseClick;
+
+      function create(){
+        _mainSwiperList = [
+          {
+            title: "타이틀 1번입니다.",
+            desc: [ "desc제목1", "WEBSITE / MOBILESITE" ],
+            date:"2018.09.14",
+          },
+          {
+            title: "타이틀 2번입니다.",
+            desc: [ "desc제목2", "WEBSITE / MOBILESITE" ],
+            date:"2018.09.14",
+          },
+          {
+            title: "타이틀 3번입니다.",
+            desc: [ "desc제목3", "WEBSITE / MOBILESITE" ],
+            date:"2018.09.14",
+          },
+          {
+            title: "타이틀 4번입니다.",
+            desc: [ "desc제목4", "WEBSITE / MOBILESITE" ],
+            date:"2018.09.14",
+          },
+          {
+            title: "타이틀 5번입니다.",
+            desc: [ "desc제목5", "WEBSITE / MOBILESITE" ], 
+            date:"2018.09.14", 
+          },
+        ];
+        
+        _mainSwiperBtnNext = $( ".slider_next" );
+        _mainSwiperBtnPrev = $( ".slider_prev" );
+        _gnbClick = $( ".gnb" );
+        _navCloseClick = $( "nav" ).find( ".nav_close" );
+        console.log( "create" );
+      }        
+
+      function addEvent(){
+        //첫 진입시 인트로 체크
+        var checkCookie = getCookie("introCookie"); 
+        if( checkCookie != 'introShow' ){
+          introShow();
+        }else{
+          $( ".intro" ).remove();
+        }
+
+        mainSwiperInit();
+        _mainSwiperBtnPrev.on( "click", mainSwiperBtnPrevClick );
+        _mainSwiperBtnNext.on( "click", mainSwiperBtnNextClick );
+        _gnbClick.on( "click", gnbCLickEvent );
+        _navCloseClick.on( "click", _navCloseClickEvent );
+      }
+
+      var _counter = 0;
+      var _countIndex;
+      var _dataLength;
+      function mainSwiperBtnPrevClick(){
+        _counter--;
+        _countIndex = _counter;
+        mainSwiperInit().slideTo( _countIndex );
+      }
+
+      function mainSwiperBtnNextClick(){
+        _counter++;
+        _countIndex = _counter;
+        mainSwiperInit().slideTo( _countIndex);
+
+      }
+    
+      function setCookie(name, value, expiredays){
+        var today = new Date();
+        // 현재시간에 하루를 더함 
+        today.setDate(today.getDate() + expiredays);
+        document.cookie = name + '=' + escape(value) + '; expires=' + today.toGMTString();
+      }
+        
+      function getCookie(name) {
+        var cookie = document.cookie;
+        if (document.cookie != "") {
+          var cookie_array = cookie.split("; ");
+          for ( var index in cookie_array) {
+            var cookie_name = cookie_array[index].split("=");
+            if (cookie_name[0] == "introCookie") {
+              return cookie_name[1];
+            }
+          }
+        }
+        return;
+      }
+      
+      function introShow(){
+        var intro = $( ".intro" );
+        var introCover = $( ".intro__cover" );
+        var masterTL = new TimelineMax({paused:true});
+        function timeline1(){
+          var tl1 = new TimelineMax();  
+            tl1.to( introCover, 1.75, {  x: "0", ease:Circ.easeInOut, delay:2.8 })
+            tl1.to( introCover, 1, {  x: "-100%", ease:Circ.easeInOut })
+            return tl1;
+        }
+        function timeline2(){
+          var tl2 = new TimelineMax();  
+            tl2.to( intro, 1, {  x: "-100%", ease:Circ.easeInOut,  onComplete: setCookie("introCookie", 'introShow', 1) })
+            return tl2;
+        }
+        masterTL.add(timeline1()).add(timeline2()).progress(1).progress(0).play();
+      
+      }
+
+      function mainSwiperInit(){
+        var indexTitle  = $( ".slider_title" ).find( "em" );
+        var indexDesc = $( ".slider_client-font" );
+        var indexDate;
+        var mySwiper = new Swiper ('.swiper-container', {
+            slidesPerView : 'auto',
+            // autoplay: true,
+            loop: true,
+            on: {
+                init: function(){
+                  _realIndex = this.realIndex;
+                  indexTitle.text(  _mainSwiperList[_realIndex].title );
+                  indexDesc.text(  _mainSwiperList[_realIndex].desc );
+                },
+                activeIndexChange: function(){
+                  _realIndex = this.realIndex;
+                  indexTitle.text(  _mainSwiperList[_realIndex].title );
+                  indexDesc.text(  _mainSwiperList[_realIndex].desc );
+
+                  // gsap.set()
+                }
+            },
+        });
+        return mySwiper;
+      }
+
+      function gnbCLickEvent(){
+        $(this).css( "opacity", 0 );
+        var nav = $( "nav" );
+        nav.addClass( "open" );
+        gsap.to( $( ".slider_inner"), 0.35, { left: "30%", ease:Power0.easeInOut})
+      }
+
+      function _navCloseClickEvent(){
+        var closeBtn = $( this ).parent(); 
+        var opengnb = $( ".gnb" ); 
+        closeBtn.removeClass( "open" );
+        opengnb.css( "opacity", 1 );
+        gsap.to( $( ".slider_inner"), 0.35, { left: "15.5%", ease:Power0.easeInOut})
+      }
+      function init(){
+        create();
+        addEvent();
+      }
+
+      $(document).ready( function(){
+        init();
+      })
+    
+    </script>
+</body>
+</html>
