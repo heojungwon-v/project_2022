@@ -152,14 +152,14 @@
         <div class="swiper mySwiper">
           <div class="swiper-container">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" data="visualDataBack">
+              <div class="swiper-slide" data-color="black">
                 <a href="javascript:;">
                   <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="../assets/images/visual_casamia.jpg?ver=0" style="min-width:100%; min-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
                     <source src="../assets/video/casamia.mp4?ver=0" type="video/mp4">
                   </video>
                 </a>  
               </div>
-              <div class="swiper-slide" data="visualData">
+              <div class="swiper-slide" data-color="black">
                 <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_iloom.jpg?ver=0" style="min-width:100%; min-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
                   <source src="http://www.newturngroup.com/images/portfolio/iloom/visual_iloom.mp4?ver=20112301" type="video/mp4">
                 </video>
@@ -305,18 +305,27 @@
             on: {
                 init: function(){
                   _realIndex = this.realIndex;
+                  var dataColorIndex = this.realIndex+1;
                   indexTitle.text(  _mainSwiperList[_realIndex].title );
                   indexDesc.text(  _mainSwiperList[_realIndex].desc );
-                
+                  var current_data = this.slides[dataColorIndex].dataset.color;
+                  if( current_data == "black" ){
+                    console.log( "같을경우" );
+                  }
                 },
                 activeIndexChange: function(){
                   _realIndex = this.realIndex;
                   indexTitle.text(  _mainSwiperList[_realIndex].title );
                   indexDesc.text(  _mainSwiperList[_realIndex].desc );
-                  console.log( $( ".swiper-slide" ).eq(_realIndex ) );
+                  console.log( $(this) );
 
                   // gsap.set()
-                }
+                },
+                realIndexChange: function () {
+                  var index = this.realIndex + 1; /* slide 1 => slides[1] */
+                  var current_data = this.slides[index].dataset.color;
+                  console.log( current_data );
+                },
             },
         });
         return mySwiper;
