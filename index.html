@@ -13,7 +13,7 @@
       <div class="intro">
           <div class="intro__textbox">
             <h1 class="intro__title">
-              <span>Hi, nice</span>
+              <span>Hi, nice</span> 
               <span>to see</span>
               <span>you here</span>
             </h1>
@@ -133,9 +133,13 @@
                 <div class="progress"></div>
               </div>
               <div class="slide_desc">
-                <span class="slider_client">
-                  <span class="slider_client-font"></span>
-                </span>
+                <div class="slider_client">
+                  <p class="slider_client-font">
+                    <em class="slider_client-name"></em>
+                    <em class="slider_client-product"></em>
+                  </p>
+                  <span class="slider_client-day"></span>
+                </div>
               </div>
             </div>
 
@@ -152,22 +156,34 @@
         <div class="swiper mySwiper">
           <div class="swiper-container">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" data-color="black">
+              <div class="swiper-slide" data-color="white">
                 <a href="javascript:;">
-                  <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="../assets/images/visual_casamia.jpg?ver=0" style="min-width:100%; min-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
-                    <source src="../assets/video/casamia.mp4?ver=0" type="video/mp4">
+                  <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="../assets/images/visual_casamia.jpg?ver=0" >
+                    <source src="../assets/video/casamia.mp4" type="video/mp4">
                   </video>
                 </a>  
               </div>
               <div class="swiper-slide" data-color="black">
-                <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_iloom.jpg?ver=0" style="min-width:100%; min-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
-                  <source src="http://www.newturngroup.com/images/portfolio/iloom/visual_iloom.mp4?ver=20112301" type="video/mp4">
+                <a href="javascript:;">
+                <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_iloom.jpg?ver=0">
+                  <source src="../assets/video/bullsone.mp4" type="video/mp4">
                 </video>
+                </a>
               </div>
-              <div class="swiper-slide" data="visualData">
-                <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_lg_velvet_thum.jpg?ver=0" style="min-width:100%; min-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
-                  <source src="http://www.newturngroup.com/images/portfolio/lg_velvet/visual_lg_velvet.mp4?ver=20061001" type="video/mp4">
+              
+              <div class="swiper-slide" data-color="white">
+                <a href="javascript:;">
+                <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_lg_velvet_thum.jpg?ver=0" >
+                  <source src="../assets/video/hodooenglish.mp4" type="video/mp4">
                 </video>
+                </a>
+              </div>
+              <div class="swiper-slide" data-color="white">
+                <a href="javascript:;">
+                <video id="mainvideo10" autoplay="autoplay" loop="" muted="" playsinline="" preload="metadata" poster="/images/visual_lg_velvet_thum.jpg?ver=0" >
+                  <source src="../assets/video/pampers.mp4" type="video/mp4">
+                </video>
+                </a>
               </div>
             </div>
 
@@ -191,22 +207,22 @@
         _mainSwiperList = [
           {
             title: "shinsagecasa",
-            desc: [ "굳닷컴", "WEBSITE / MOBILESITE" ],
+            desc: [ "Guud.com", "WEBSITE / MOBILESITE" ],
             date:"2018.09.14",
           },
           {
-            title: "타이틀 2번입니다.",
-            desc: [ "desc제목2", "WEBSITE / MOBILESITE" ],
+            title: "bullsone",
+            desc: [ "bullsone.com", "WEBSITE / MOBILESITE" ],
             date:"2018.09.14",
           },
           {
-            title: "타이틀 3번입니다.",
-            desc: [ "desc제목3", "WEBSITE / MOBILESITE" ],
+            title: "hodooenglish",
+            desc: [ "hodooenglish.com", "RESPONSIVESITE" ],
             date:"2018.09.14",
           },
           {
-            title: "타이틀 4번입니다.",
-            desc: [ "desc제목4", "WEBSITE / MOBILESITE" ],
+            title: "pampers",
+            desc: [ "pampers.co.kr", "RESPONSIVESITE" ],
             date:"2018.09.14",
           },
           {
@@ -220,7 +236,6 @@
         _mainSwiperBtnPrev = $( ".slider_prev" );
         _gnbClick = $( ".gnb" );
         _navCloseClick = $( "nav" ).find( ".nav_close" );
-        console.log( "create" );
       }        
 
       function addEvent(){
@@ -232,7 +247,9 @@
           $( ".intro" ).remove();
         }
 
-        mainSwiperInit();
+
+        mainSwiperInit().slideTo( 0 );
+        progressShow();
         _mainSwiperBtnPrev.on( "click", mainSwiperBtnPrevClick );
         _mainSwiperBtnNext.on( "click", mainSwiperBtnNextClick );
         _gnbClick.on( "click", gnbCLickEvent );
@@ -294,40 +311,77 @@
       
       }
 
+      function progressShow(){
+
+       var progressBar =  $( ".progress" );
+       var itemIndex = 0;
+       gsap.set( progressBar, { width: 0 });
+       gsap.to( progressBar, 10, { width:"100%", ease:Power0.easeInOut, onComplete: function(){
+         console.log( itemIndex++ );
+         mainSwiperInit().slideTo( _realIndex );
+    
+       }});
+      }
+
       function mainSwiperInit(){
         var indexTitle  = $( ".slider_title" ).find( "em" );
-        var indexDesc = $( ".slider_client-font" );
+        var indexDescName = $( ".slider_client-name" );
+        var indexDescProduct = $( ".slider_client-product" );
+        var indexDate = $( ".slider_client-day" );
         var indexDate;
+        var wrapEle = $( "#wrap" );
         var mySwiper = new Swiper ('.swiper-container', {
             slidesPerView : 'auto',
             // autoplay: true,
+            slidesPerView: 'auto',
+            initialSlide: 1,
+            centeredSlides: true,
             loop: true,
             on: {
                 init: function(){
                   _realIndex = this.realIndex;
-                  var dataColorIndex = this.realIndex+1;
                   indexTitle.text(  _mainSwiperList[_realIndex].title );
-                  indexDesc.text(  _mainSwiperList[_realIndex].desc );
-                  var current_data = this.slides[dataColorIndex].dataset.color;
+                  console.log(  _mainSwiperList[_realIndex].desc[0] ); 
+                  indexDescName.text(  _mainSwiperList[_realIndex].desc[0] );
+                  indexDescProduct.text(  _mainSwiperList[_realIndex].desc[1] );
+                  indexDate.text( _mainSwiperList[_realIndex].date );
+
+                  var index = this.realIndex; /* slide 1 => slides[1] */
+                  var current_data = this.slides[index].dataset.color;
+
+    
                   if( current_data == "black" ){
-                    console.log( "같을경우" );
+                    wrapEle.addClass( "black" );
+                  }else{
+                    wrapEle.removeClass( "black" );
+                    console.log( "???" );
                   }
+
+                 
                 },
                 activeIndexChange: function(){
                   _realIndex = this.realIndex;
                   indexTitle.text(  _mainSwiperList[_realIndex].title );
-                  indexDesc.text(  _mainSwiperList[_realIndex].desc );
-                  console.log( $(this) );
-
-                  // gsap.set()
+                  indexDescName.text(  _mainSwiperList[_realIndex].desc[0] );
+                  indexDescProduct.text(  _mainSwiperList[_realIndex].desc[1] );
+                  indexDate.text( _mainSwiperList[_realIndex].date );
+           
                 },
                 realIndexChange: function () {
-                  var index = this.realIndex + 1; /* slide 1 => slides[1] */
+                  var index = this.realIndex; /* slide 1 => slides[1] */
                   var current_data = this.slides[index].dataset.color;
-                  console.log( current_data );
+                
+                  if( current_data == "black" ){
+                    wrapEle.addClass( "black" );
+                  }else{
+                    wrapEle.removeClass( "black" );
+                    console.log( "???" );
+                  }
+
                 },
             },
         });
+    
         return mySwiper;
       }
 
