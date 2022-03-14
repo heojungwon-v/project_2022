@@ -148,8 +148,8 @@
               <a href="javascript:;" class="slider_next"></a>
             </div> 
             <div class="slider-pagenation">
-              <span class="slide-current">01</span>
-              <span class="slide-total">3</span>
+              <span class="slide-current">01</span> 
+              <span class="slide-total"></span>
             </div>
           </div>
         </div>
@@ -330,6 +330,7 @@
         var indexDate = $( ".slider_client-day" );
         var indexDate;
         var wrapEle = $( "#wrap" );
+        var slideLendth = $( ".slide-total" ); 
         var mySwiper = new Swiper ('.swiper-container', {
             slidesPerView : 'auto',
             // autoplay: true,
@@ -368,21 +369,28 @@
            
                 },
                 realIndexChange: function () {
-                  var index = this.realIndex; /* slide 1 => slides[1] */
+                  var index = this.realIndex; 
                   var current_data = this.slides[index].dataset.color;
                 
                   if( current_data == "black" ){
                     wrapEle.addClass( "black" );
                   }else{
                     wrapEle.removeClass( "black" );
-                    console.log( "???" );
                   }
+
+                  var slideCurrntNum = $( ".slide-current" );
+                  slideCurrntNum.text( )
+
 
                 },
             },
         });
-    
+        
+        slideLendth.text( mySwiper.loopedSlides );
+
         return mySwiper;
+
+      
       }
 
       function gnbCLickEvent(){
